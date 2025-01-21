@@ -1,0 +1,17 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  streamlit:
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      - SUPABASE_URL=${https://rzdziajsriltbjhusefa.supabase.co}
+      - SUPABASE_KEY=${eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6ZHppYWpzcmlsdGJqaHVzZWZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc0OTUyNTAsImV4cCI6MjA1MzA3MTI1MH0.y9y99M-FAN9FkP9FSm3H0hrnAHwFgf0Ogb3mAae4_d4}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
